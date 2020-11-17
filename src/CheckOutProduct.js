@@ -1,21 +1,21 @@
 import React from "react";
-import "./CheckOutProduct.css";
-import { useStateValue } from './StateProvider'
+import "./CheckoutProduct.css";
+import { useStateValue } from "./StateProvider";
 
-function CheckOutProduct({ id, image, title, price, rating }) {
-    const [{ basket }, dispatch] = useStateValue();
+function CheckoutProduct({ id, image, title, price, rating, hideButton }) {
+  const [{ basket }, dispatch] = useStateValue();
 
-    const removeFromBasket = () => {
-        // remove the item from basket
-        dispatch({
-            type: 'REMOVE_FROM_BASKET',
-            id: id
-        })
-    }
+  const removeFromBasket = () => {
+    // remove the item from basket
+    dispatch({
+      type: "REMOVE_FROM_BASKET",
+      id: id,
+    });
+  };
 
   return (
     <div className="checkoutProduct">
-      <img className="checkoutProduct__image" src={image} />
+      <img className="checkoutProduct__image" src={image} alt="" />
       <div className="checkoutProduct__info">
         <p className="checkoutProduct__title">{title}</p>
         <p className="checkoutProduct__price">
@@ -29,10 +29,12 @@ function CheckOutProduct({ id, image, title, price, rating }) {
               <p>🌟</p>
             ))}
         </div>
-        <button onClick={removeFromBasket}>Remove from Basket</button>
+        {!hideButton && (
+          <button onClick={removeFromBasket}>Remove from Basket</button>
+        )}
       </div>
     </div>
   );
 }
 
-export default CheckOutProduct;
+export default CheckoutProduct;
